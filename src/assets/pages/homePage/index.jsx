@@ -1,0 +1,62 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import LoadingComponent from "../../components/loading";
+import SearchComponent from "../../components/search";
+import "./index.scss";
+
+const HomePage = () => {
+  const Data = useSelector((state) => state.getDataReducer);
+  console.log(Data);
+  return (
+    <div className="HomePage">
+      <SearchComponent />
+      {Data?.data === undefined ? (
+        Data?.error?.code === "ERR_BAD_REQUEST" ? (
+          <div className="error">
+            <h1>No Such User Exists on GitHub !!!</h1>
+          </div>
+        ) : (
+          <div className="first">
+            <i className="fa-solid fa-arrow-up-z-a"></i>
+            <h1>Enter the Github UserName</h1>
+          </div>
+        )
+      ) : (
+        <div className="gitCard">
+          <div className="image">
+            <img src={Data?.data?.avatar_url} alt="" />
+          </div>
+          <div className="about">
+            <div className="name">
+              <h1>UserName: {Data?.data?.login}</h1>
+              <h1>Name: {Data?.data?.name}</h1>
+            </div>
+
+            <p>ID: {Data?.data?.id}</p>
+
+            <a href={Data?.data?.html_url} target="_blank">
+              Visit Github Profile
+            </a>
+
+            <p>Type: {Data?.data?.type}</p>
+
+            <p>Company: {Data?.data?.company}</p>
+
+            <p>Location: {Data?.data?.location}</p>
+
+            <p>Public Repos: {Data?.data?.public_repos}</p>
+            <p>Followers: {Data?.data?.followers}</p>
+            <p>Following: {Data?.data?.following}</p>
+            <p>Created at: {Data?.data?.created_at}</p>
+            <p>Updated at: {Data?.data?.updated_at}</p>
+            <p>email: {Data?.data?.email}</p>
+          </div>
+        </div>
+      )}
+
+      {Data.loading && <LoadingComponent />}
+    </div>
+  );
+};
+
+export default HomePage;
