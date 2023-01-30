@@ -6,7 +6,6 @@ import "./index.scss";
 
 const HomePage = () => {
   const Data = useSelector((state) => state.getDataReducer);
-  console.log(Data);
   return (
     <div className="HomePage">
       <SearchComponent />
@@ -32,24 +31,29 @@ const HomePage = () => {
               <h1>Name: {Data?.data?.name}</h1>
             </div>
 
-            <p>ID: {Data?.data?.id}</p>
+            <div className="location">
+              <div className="id">
+                <p>ID: {Data?.data?.id}</p>
+                <p>Type: {Data?.data?.type}</p>
+              </div>
+              <div className="id">
+                <p>Company: {Data?.data?.company}</p>
+                <p>Location: {Data?.data?.location}</p>
+              </div>
+            </div>
 
-            <a href={Data?.data?.html_url} target="_blank">
-              Visit Github Profile
-            </a>
-
-            <p>Type: {Data?.data?.type}</p>
-
-            <p>Company: {Data?.data?.company}</p>
-
-            <p>Location: {Data?.data?.location}</p>
+            <div className="followers">
+              <p>Followers: {Data?.data?.followers}</p>
+              <p>Following: {Data?.data?.following}</p>
+            </div>
 
             <p>Public Repos: {Data?.data?.public_repos}</p>
-            <p>Followers: {Data?.data?.followers}</p>
-            <p>Following: {Data?.data?.following}</p>
             <p>Created at: {Data?.data?.created_at}</p>
             <p>Updated at: {Data?.data?.updated_at}</p>
             <p>email: {Data?.data?.email}</p>
+            <a href={Data?.data?.html_url} target="_blank">
+              Visit Github Profile
+            </a>
           </div>
         </div>
       )}
